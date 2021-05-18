@@ -18,7 +18,7 @@ searchInputEl.addEventListener('blur', function () {
 const badgeEl = document.querySelector('header .badges');
 
 window.addEventListener('scroll', _.throttle(function () {
-  console.log(window.scrollY);
+  // console.log(window.scrollY);
   if(window.scrollY) {
     // badge hidden
     // gsap.to(요소, 지속시간, 옵션);
@@ -104,3 +104,15 @@ function floatingObject (selector, delay, size) {
 floatingObject('.floating1', 1, 15);
 floatingObject('.floating2', .5, 15);
 floatingObject('.floating3', 1.5, 20);
+
+const spyEls = document.querySelectorAll('section.scroll-spy');
+spyEls.forEach(function (spyEl) {
+  console.log(1);
+  new ScrollMagic
+    .Scene({
+      triggerElement: spyEl,
+      triggerHook: .8
+    })
+    .setClassToggle(spyEl, 'show')
+    .addTo(new ScrollMagic.Controller());
+});

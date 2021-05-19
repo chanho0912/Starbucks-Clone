@@ -16,6 +16,7 @@ searchInputEl.addEventListener('blur', function () {
 }); 
 
 const badgeEl = document.querySelector('header .badges');
+const scrollEl = document.querySelector('#to-top');
 
 window.addEventListener('scroll', _.throttle(function () {
   // console.log(window.scrollY);
@@ -26,6 +27,9 @@ window.addEventListener('scroll', _.throttle(function () {
       opacity: 0,
       display: 'none'
     });
+    gsap.to(scrollEl, .2, {
+      x: 0
+    });
   }
   else {
     // badge show
@@ -33,11 +37,19 @@ window.addEventListener('scroll', _.throttle(function () {
       opacity: 1,
       display: 'block'
     });
+    gsap.to(scrollEl, .2, {
+      x: 100
+    });
   }
 }, 300));
 
-// _.throttle(function, time)
+scrollEl.addEventListener('click', function () {
+  gsap.to(window, .7, {
+    scrollTo: 0
+  });
+});
 
+// _.throttle(function, time)
 const fadeEls = document.querySelectorAll('.visual .fade-in');
 fadeEls.forEach(function (fadeEl, index) {
   gsap.to(fadeEl, 1, {
@@ -70,6 +82,16 @@ new Swiper('.promotion .swiper-container', {
   }
 });
 
+new Swiper('.awards .swiper-container', {
+  slidesPerView: 5,
+  autoplay: true,
+  loop: true,
+  spaceBetween: 30,
+  navigation: {
+    prevEl: '.awards .swiper-prev',
+    nextEl: '.awards .swiper-next'
+  }
+})
 const promotionEl = document.querySelector('.promotion');
 const promotionToggleBtn = document.querySelector('.toggle-promotion');
 let isHidePromotion = false;
@@ -116,3 +138,6 @@ spyEls.forEach(function (spyEl) {
     .setClassToggle(spyEl, 'show')
     .addTo(new ScrollMagic.Controller());
 });
+
+const thisYear = document.querySelector('.this-year');
+thisYear.textContent = new Date().getFullYear(); //2021
